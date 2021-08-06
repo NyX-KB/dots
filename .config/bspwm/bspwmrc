@@ -1,0 +1,64 @@
+#!/bin/sh
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+# clean up rules
+bspc rule -r "*"
+
+#
+# autostart
+#
+
+# hotkey daemon
+sxhkd &
+
+# compositor
+picom &
+
+# restore colorscheme and wallpaper
+wal -R &
+
+# merge Xresources
+xrdb ~/.Xresources &
+
+# polybar
+bash ~/.config/polybar/shades/scripts/pywal.sh ~/download/nordwall2.jpg
+bash ~/.config/polybar/launch.sh --shades
+
+#
+# global settings
+#
+
+bspc config split_ratio 0.
+bspc config borderless_monocle false
+bspc config gapless_monocle false
+
+# floating windows
+bspc config pointer_modifier mod 
+bspc config pointer_action1 move 
+bspc config pointer_action2 resize_side
+bspc config pointer_action3 resize_corner
+
+# focus
+bspc config focus_follows_pointer true
+bspc config click_to_focus none
+
+# colors
+bspc config normal_border_color $color0
+bspc config focused_border_color $color7
+bspc config active_border_color $color1
+bspc config urgent_border_color $color1
+bspc config presel_feedback_color $color7
+
+#
+# gaps and padding
+#
+
+bspc config top_padding 0
+bspc config bottom_padding 0
+bspc config left_padding 0
+bspc config right_padding 0
+bspc config border_width 4
+bspc config window_gap 18
+
+# master and stack layout
+bsp-layout set tall
